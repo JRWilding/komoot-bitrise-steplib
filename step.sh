@@ -56,6 +56,11 @@ git merge $branch_to_merge_from || create_pr
 
 echo 'no conflicts'
 
+cd ci
+chmod +x clean-dupe-strings.sh
+./clean-dupe-strings.sh
+cd ..
+
 #! Push merged changes
 git push
 
