@@ -32,7 +32,7 @@ create_pr() {
     git checkout $branch_to_merge_from
 
     #! Create pull request
-    PULL_REQUEST=$(hub pull-request -b $branch_to_merge_into -m "merge $branch_to_merge_from in $branch_to_merge_into [${GIT_CLONE_COMMIT_MESSAGE_SUBJECT}]")
+    PULL_REQUEST=$(hub pull-request -b $branch_to_merge_into -m "merge $branch_to_merge_from in $branch_to_merge_into [${GIT_CLONE_COMMIT_MESSAGE_SUBJECT}] [skip ci]")
 
     envman add --key CREATED_PULL_REQUEST --value "${PULL_REQUEST}"
     echo "Pull request created at ${PULL_REQUEST}"
@@ -52,7 +52,7 @@ git checkout $branch_to_merge_from
 #! Checkout the branch to merge into
 git checkout $branch_to_merge_into
 
-git merge $branch_to_merge_from || create_pr
+git merge $branch_to_merge_from $additional_merge_options || create_pr
 
 echo 'no conflicts'
 
